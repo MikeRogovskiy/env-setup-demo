@@ -21,8 +21,7 @@ describe('runApp', () => {
 
   function getParagraphs() {
     return [...el.querySelectorAll('p')].map((pEl) => pEl.innerHTML);
-  }
-
+  } 
   function clickButton() {
     button.click();
   }
