@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/MikeRogovskiy/env-setup-demo#readme",
   "dependencies": {
+    "eslint-plugin-jest": "^26.5.3",
     "jest-environment-jsdom": "^28.1.2",
     "lodash": "^4.17.21"
   },
