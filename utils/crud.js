@@ -20,3 +20,14 @@ export function createPerson(data) {
 export function readPerson(id) {
   return fetchJSON(`/people/${id}`);
 }
+
+export async function updatePerson(id, data) {
+  const { _id, ...dataWithoutID } = data;
+  return fetch(`${BASE_URL}/people/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(dataWithoutID),
+  });
+}
