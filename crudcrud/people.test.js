@@ -1,4 +1,9 @@
-import { createPerson, readPerson, updatePerson } from "../utils/crud";
+import {
+  createPerson,
+  readPerson,
+  updatePerson,
+  deletePerson,
+} from "../utils/crud";
 
 describe("CrudCrud: People", () => {
   // Cоздать фейковые данные
@@ -38,16 +43,31 @@ describe("CrudCrud: People", () => {
       ...createResponseData,
       name: newName,
     });
-
-    // проверить имя в ответе обновления
-
-    // прочитать пользователя
     // проверить имя
     const readPersonResponseData = await readPerson(createResponseData._id);
     expect(readPersonResponseData).toEqual({
       age,
       name: newName,
       _id: createResponseData._id,
+    });
+  });
+
+  it("can create a person", async () => {
+    const name = `${Math.random()}`;
+    const age = Math.ceil(Math.random() * 100);
+    const createResponseData = await createPerson({ age, name });
+
+    // удаляем пользователя
+    await deletePerson(createResponseData._id, createResponseData);
+
+    // проверяем пользователя на наличие
+
+    const readPersonResponseData = await deletePerson(createResponseData);
+    expect(readPersonResponseData).toEqual({
+      type: "https://tools.ietf.org/html/rfc7231#section-6.5.4",
+      title: "Not Found",
+      status: 404,
+      traceId: "0HMFUSLN7UELQ:00000001",
     });
   });
 });
