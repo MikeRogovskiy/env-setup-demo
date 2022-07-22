@@ -36,5 +36,9 @@ export function runApp(el) {
     if (paragraphs.length > 5) {
       paragraphs[5].remove();
     }
+
+    // const paragraphDelete = ("click", () => {
+
+    // });
   });
 }

@@ -34,6 +34,11 @@ describe("runApp", () => {
     return input.value;
   }
 
+  // function clickParagraph(index) {
+  //   const p = el.querySelectorAll('p')[index];
+  //   p.click();
+  // }
+
   it("renders 3 paragraphs and input", () => {
     // подготовка
     // const el = document.createElement("div");
@@ -82,4 +87,10 @@ describe("runApp", () => {
     });
     expect(getParagraphs()).toEqual(["345", "234", "123", "1", "2"]);
   });
+  // it("delete one pharagraph", () => {
+  //   clickParagraph(1);
+
+  //   expect(getParagraphs()).toEqual(["1", "3"]);
+
+  // });
 });
