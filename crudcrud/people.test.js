@@ -1,25 +1,4 @@
-const fetch = require("node-fetch");
-
-const BASE_URL = "https://crudcrud.com/api/d6c5d270b6994da9bc4982d395ee3f17";
-
-async function fetchJSON(url, ...args) {
-  const response = await fetch(`${BASE_URL}${url}`, ...args);
-  return response.json();
-}
-
-function createPerson(data) {
-  return fetchJSON(`/people`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
-}
-
-function readPerson(id) {
-  return fetchJSON(`/people/${id}`);
-}
+import { createPerson, readPerson } from "../utils/crud";
 
 describe("CrudCrud: People", () => {
   // Cоздать фейковые данные
@@ -38,7 +17,7 @@ describe("CrudCrud: People", () => {
       })
     );
     // отправить запрос на чтение созданной персоны
-    const readPersonResponseData = readPerson(createResponseData._id);
+    const readPersonResponseData = await readPerson(createResponseData._id);
     // проверить ответ на данные, которые мы сгенерировали
     expect(readPersonResponseData).toEqual({
       age,
