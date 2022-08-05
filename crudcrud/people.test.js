@@ -62,7 +62,7 @@ describe("CrudCrud: People", () => {
 
     // проверяем пользователя на наличие
 
-    const readPersonResponseData = await deletePerson(createResponseData);
+    const readPersonResponseData = await readPerson(createResponseData);
     expect(readPersonResponseData).toEqual({
       type: "https://tools.ietf.org/html/rfc7231#section-6.5.4",
       title: "Not Found",
