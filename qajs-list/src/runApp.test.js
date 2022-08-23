@@ -34,6 +34,10 @@ describe("runApp", () => {
     return input.value;
   }
 
+  function clickParagraph(index) {
+    el.querySelectorAll("p")[index].click();
+  }
+
   // function clickParagraph(index) {
   //   const p = el.querySelectorAll('p')[index];
   //   p.click();
@@ -93,4 +97,28 @@ describe("runApp", () => {
   //   expect(getParagraphs()).toEqual(["1", "3"]);
 
   // });
+  it("Remove paragraph", () => {
+    clickParagraph(0);
+    expect(getParagraphs()).toEqual(["2", "3"]);
+  });
+
+  it("removes new paragraph", () => {
+    type("123");
+    clickButton();
+    expect(getParagraphs()).toEqual(["123", "1", "2", "3"]);
+
+    clickParagraph(0);
+    expect(getParagraphs()).toEqual(["1", "2", "3"]);
+  });
+
+  it("removes any paragraph", () => {
+    type("234");
+    clickButton();
+
+    type("345");
+    clickButton();
+
+    clickParagraph(4);
+    expect(getParagraphs()).toEqual(["345", "234", "1", "2"]);
+  });
 });
