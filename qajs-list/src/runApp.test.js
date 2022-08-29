@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import { runApp } from "./runApp";
 
 describe("runApp", () => {
@@ -38,20 +41,7 @@ describe("runApp", () => {
     el.querySelectorAll("p")[index].click();
   }
 
-  // function clickParagraph(index) {
-  //   const p = el.querySelectorAll('p')[index];
-  //   p.click();
-  // }
-
   it("renders 3 paragraphs and input", () => {
-    // подготовка
-    // const el = document.createElement("div");
-
-    // выполнение кода
-    // runApp(el);
-
-    // проверки
-    // 3 параграфа
     expect(getParagraphs()).toEqual(["1", "2", "3"]);
     // поле ввода
     expect(el.querySelectorAll("input").length).toBe(1);
