@@ -52,12 +52,20 @@ describe("List of paragraphs", () => {
     return await input.getValue();
   }
   async function type(str) {
+    // await input.clearValue();
+    // await input.keys(['Backspace', 'Backspace', 'Backspace']);
     // eslint-disable-next-line no-return-await
     return await input.setValue(str);
   }
   async function isButtonHidden() {
     // eslint-disable-next-line no-return-await
     return !(await button.isDisplayed());
+  }
+
+  async function clickParagraph(index) {
+    const p = browser.$$("p")[index];
+    // eslint-disable-next-line no-return-await
+    return await p.click();
   }
 
   it("renders 3 paragraphs and input", async () => {
@@ -83,8 +91,42 @@ describe("List of paragraphs", () => {
     await type("123");
 
     expect(await isButtonHidden()).toBe(false);
+    await input.keys(["Backspace", "Backspace", "Backspace"]);
 
     await type("");
-    expect(await isButtonHidden()).toBe(false);
+    expect(await isButtonHidden()).toBe(true);
+  });
+
+  it("adds maximum 5 paragraphs", async () => {
+    ["123", "234", "345"].forEach(async (text) => {
+      await type(text);
+      await clickButton();
+    });
+    expect(await getParagraphs()).toEqual(["345", "234", "123", "1", "2"]);
+  });
+
+  it("Remove paragraph", async () => {
+    await clickParagraph(0);
+    expect(await getParagraphs()).toEqual(["2", "3"]);
+  });
+
+  it("removes new paragraph", async () => {
+    await type("123");
+    await clickButton();
+    expect(await getParagraphs()).toEqual(["123", "1", "2", "3"]);
+
+    await clickParagraph(0);
+    expect(await getParagraphs()).toEqual(["1", "2", "3"]);
+  });
+
+  it("removes any paragraph", async () => {
+    await type("234");
+    await clickButton();
+
+    await type("345");
+    await clickButton();
+
+    await clickParagraph(4);
+    expect(await getParagraphs()).toEqual(["345", "234", "1", "2"]);
   });
 });
