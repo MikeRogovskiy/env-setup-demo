@@ -1,3 +1,4 @@
+/* eslint-disable no-await-in-loop */
 const { remote } = require("webdriverio");
 
 function sleep(x) {
@@ -98,10 +99,12 @@ describe("List of paragraphs", () => {
   });
 
   it("adds maximum 5 paragraphs", async () => {
-    ["123", "234", "345"].forEach(async (text) => {
+    const texts = ["123", "234", "345"];
+    // eslint-disable-next-line no-restricted-syntax, prefer-const
+    for (let text of texts) {
       await type(text);
       await clickButton();
-    });
+    }
     expect(await getParagraphs()).toEqual(["345", "234", "123", "1", "2"]);
   });
 
