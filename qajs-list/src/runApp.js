@@ -24,6 +24,12 @@ export function runApp(el) {
     button.hidden = !input.value;
   });
 
+  el.addEventListener("click", (ev) => {
+    if (ev.target.matches("p")) {
+      ev.target.remove();
+    }
+  });
+
   button.addEventListener("click", () => {
     const newP = document.createElement("p");
     newP.innerHTML = input.value;
@@ -36,5 +42,9 @@ export function runApp(el) {
     if (paragraphs.length > 5) {
       paragraphs[5].remove();
     }
+
+    // const paragraphDelete = ("click", () => {
+
+    // });
   });
 }

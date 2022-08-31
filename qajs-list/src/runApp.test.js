@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import { runApp } from "./runApp";
 
 describe("runApp", () => {
@@ -34,15 +37,11 @@ describe("runApp", () => {
     return input.value;
   }
 
+  function clickParagraph(index) {
+    el.querySelectorAll("p")[index].click();
+  }
+
   it("renders 3 paragraphs and input", () => {
-    // подготовка
-    // const el = document.createElement("div");
-
-    // выполнение кода
-    // runApp(el);
-
-    // проверки
-    // 3 параграфа
     expect(getParagraphs()).toEqual(["1", "2", "3"]);
     // поле ввода
     expect(el.querySelectorAll("input").length).toBe(1);
@@ -81,5 +80,35 @@ describe("runApp", () => {
       clickButton();
     });
     expect(getParagraphs()).toEqual(["345", "234", "123", "1", "2"]);
+  });
+  // it("delete one pharagraph", () => {
+  //   clickParagraph(1);
+
+  //   expect(getParagraphs()).toEqual(["1", "3"]);
+
+  // });
+  it("Remove paragraph", () => {
+    clickParagraph(0);
+    expect(getParagraphs()).toEqual(["2", "3"]);
+  });
+
+  it("removes new paragraph", () => {
+    type("123");
+    clickButton();
+    expect(getParagraphs()).toEqual(["123", "1", "2", "3"]);
+
+    clickParagraph(0);
+    expect(getParagraphs()).toEqual(["1", "2", "3"]);
+  });
+
+  it("removes any paragraph", () => {
+    type("234");
+    clickButton();
+
+    type("345");
+    clickButton();
+
+    clickParagraph(4);
+    expect(getParagraphs()).toEqual(["345", "234", "1", "2"]);
   });
 });
