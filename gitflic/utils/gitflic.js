@@ -54,7 +54,6 @@ export async function signUpForm(csrf, userData) {
 export async function checkSuccessRedirect(signUpFormResult) {
   const pageHtml = await signUpFormResult.text();
   if (!pageHtml.includes("было выслано письмо")) {
-    console.log({ pageHtml });
     throw new Error("wrong page");
   }
 }
